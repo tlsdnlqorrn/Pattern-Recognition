@@ -1,0 +1,36 @@
+import cv2
+
+def pipeline(img):
+#img = cv2.imread('./data/test_images/solidWhiteRight.jpg')
+
+    #그레이스케일로 변환
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    #가우시안 필터 = 노이즈를 정리 (스무딩)
+    blurred_img = cv2.GaussianBlur(gray_img, (3,3), 0.0)
+    #cv2.imshow('blurred', blurred_img)
+    #cv2.waitKey()
+
+    edge_img = cv2.Canny(blurred_img, 70, 140)
+    #cv2.imshow('edge', edge_img)
+    #cv2.waitKey()
+
+    return edge_img
+
+cap = cv2.VideoCapture('./data/test_videos/solidWhiteRight.mp4')
+
+while True:
+    ok, frame = cap.read()
+    if not ok:
+        break
+
+    edge_img = pipeline(frame)
+    cv2.imshow('edge', edge_img)
+
+    #cv2.waitKey(30) #창을 ()ms 만큼 딜레이 시키는 기능, 바로 꺼지지 않게 함
+    key = cv2.waitKey(30) #key 는 -1을 반환함
+    if key == ord('x'): ## x 키를 눌렀을 때 꺼지게 하고싶다면
+        break
+
+cap.release()
+#cv2.waitKey()

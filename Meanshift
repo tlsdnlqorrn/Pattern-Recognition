@@ -29,7 +29,7 @@ def mean_shift(X, bandwidth, n_iteration=20, epsilon=0.001):
             """
             코드 완성할 부분
             """
-            # 종료 조 1 = 반복 횟수가 n_iteration을 초과하면 stop!
+            # 종료 조건 1 = 반복 횟수가 n_iteration을 초과하면 stop!
             if (t > n_iteration):
                 break
 
